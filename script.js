@@ -13,7 +13,7 @@ let playerPosition = 50;
 let targetPlayerPosition = 50;
 let obstaclePosition = 0;
 let score = 0;
-let speed = 0.8;
+let speed = 1;
 let gameRunning = false;
 let isMuted = false;
 let shiftPressed = false;
@@ -87,7 +87,16 @@ const updateGame = () => {
     }
     obstacle.style.top = obstaclePosition + '%';
 
-    if (obstaclePosition > 90 && Math.abs(parseFloat(obstacle.style.left) - playerPosition) < 5) {
+    // Check collision with obstacle
+    const playerRect = player.getBoundingClientRect();
+    const obstacleRect = obstacle.getBoundingClientRect();
+
+    if (
+        playerRect.left < obstacleRect.left + obstacleRect.width &&
+        playerRect.left + playerRect.width > obstacleRect.left &&
+        playerRect.top < obstacleRect.top + obstacleRect.height &&
+        playerRect.top + playerRect.height > obstacleRect.top
+    ) {
         gameRunning = false;
         gameOverMessage.style.display = 'block';
         saveHighScore(score);
@@ -119,7 +128,7 @@ const generatePixel = () => {
         const pixel = document.createElement('div');
         pixel.className = 'pixel';
         pixel.style.left = Math.random() * 100 + '%';
-        pixel.dataset.speed = 0.07 + Math.random() * 0.1; // Assign a random speed between 0.05 and 0.15
+        pixel.dataset.speed = 0.05 + Math.random() * 0.1; // Assign a random speed between 0.05 and 0.15
         gameContainer.appendChild(pixel);
     }
 };
