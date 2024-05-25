@@ -3,6 +3,8 @@
 Space Runner is a web-based game , created using HTML, CSS and Javascript.
 The player controls a ball that must avoid shooting stars.
 
+https://stathismorr.github.io/space-runner/
+
 ## Features
 
 - Player can move left and right using the arrow keys
