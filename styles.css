@@ -1,0 +1,91 @@
+@font-face {
+    font-family: 'CustomFont';
+    src: url('custom-font.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    font-family: 'CustomFont', Arial, sans-serif;
+}
+
+#gameContainer {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    background-color: #131313; /* Darker background */
+}
+
+#startMessage, #gameOverMessage {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: rgb(54, 255, 184);
+    font-size: 35px;
+    display: none;
+}
+
+#player {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    width: 50px;
+    height: 50px;
+    background-color: tomato;
+    border-radius: 50%; /* Make it a ball */
+    transform: translateX(-50%);
+}
+
+#obstacle {
+    position: absolute;
+    top: 0;
+    width: 50px;
+    height: 50px;
+    background-color: rgb(255, 241, 186);
+    border-radius: 50%; /* Make it a ball */
+}
+
+#score {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: rgb(255, 112, 51);
+    font-size: 25px;
+    display: none;
+}
+
+#muteButton {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    padding: 10px;
+    background-color: #444;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#volumeControl {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    width: 100px;
+}
+
+#volumeLabel {
+    position: absolute;
+    bottom: 70px;
+    right: 10px;
+    color: white;
+}
+    
+.pixel {
+    position: absolute;
+    top: 0;
+    width: 5px;
+    height: 5px;
+    background-color: rgb(92, 92, 92);
+}
