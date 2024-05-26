@@ -7,6 +7,7 @@ const startMessage = document.getElementById('startMessage');
 const gameOverMessage = document.getElementById('gameOverMessage');
 const highestScoreDisplay = document.createElement('div');
 const soundtrack = document.getElementById('soundtrack');
+const moveSound = document.getElementById('moveSound');
 const muteButton = document.getElementById('muteButton');
 const volumeControl = document.getElementById('volumeControl');
 
@@ -25,12 +26,13 @@ let gameRunning = false;
 let isMuted = false;
 let shiftPressed = false;
 
-// Initial setup for displaying elements
+// Set initial volume for the move sound effect
+moveSound.volume = 0.1; // Set the volume between 0.0 and 1.0
+
 startMessage.style.display = 'block';
 highestScoreDisplay.style.cssText = 'color: white; font-size: 18px; position: absolute; top: 40px; left: 50%; transform: translateX(-50%);';
 gameContainer.appendChild(highestScoreDisplay);
 
-// Event listener for keydown events
 document.addEventListener('keydown', (event) => {
     if (!gameRunning) {
         startGame();
@@ -39,24 +41,20 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-// Event listener for keyup events
 document.addEventListener('keyup', (event) => {
     if (event.key === 'Shift') {
         shiftPressed = false;
     }
 });
 
-// Event listener for mute button
 muteButton.addEventListener('click', () => {
     toggleMute();
 });
 
-// Event listener for volume control
 volumeControl.addEventListener('input', (event) => {
     soundtrack.volume = event.target.value;
 });
 
-// Start the game
 function startGame() {
     startMessage.style.display = 'none';
     gameOverMessage.style.display = 'none';
@@ -75,7 +73,6 @@ function startGame() {
     updateGame();
 }
 
-// Update game state
 function updateGame() {
     if (!gameRunning) return;
 
@@ -110,27 +107,32 @@ function updateGame() {
     requestAnimationFrame(updateGame);
 }
 
-// Handle player movement
 function handleMovement(event) {
+    let moved = false;
     if (event.key === 'ArrowLeft') {
         targetPlayerPosition = Math.max(targetPlayerPosition - (shiftPressed ? 20 : 10), EDGE_DEADZONE);
+        moved = true;
     }
     if (event.key === 'ArrowRight') {
         targetPlayerPosition = Math.min(targetPlayerPosition + (shiftPressed ? 20 : 10), 100 - EDGE_DEADZONE);
+        moved = true;
     }
     if (event.key === 'Shift') {
         shiftPressed = true;
     }
+    if (moved && !isMuted) {
+        moveSound.currentTime = 0; // Rewind to the start
+        moveSound.play();
+    }
 }
 
-// Toggle mute state
 function toggleMute() {
     isMuted = !isMuted;
     soundtrack.muted = isMuted;
+    moveSound.muted = isMuted;
     muteButton.textContent = isMuted ? 'Unmute' : 'Mute';
 }
 
-// Check if two elements collide
 function checkCollision(element1, element2) {
     const rect1 = element1.getBoundingClientRect();
     const rect2 = element2.getBoundingClientRect();
@@ -142,7 +144,6 @@ function checkCollision(element1, element2) {
     );
 }
 
-// End the game
 function endGame() {
     gameRunning = false;
     gameOverMessage.style.display = 'block';
@@ -150,24 +151,20 @@ function endGame() {
     fetchHighScore();
 }
 
-// Save the highest score to localStorage
 function saveHighScore(score) {
     const highestScore = Math.max(score, getHighScore());
     localStorage.setItem('highestScore', highestScore);
 }
 
-// Get the highest score from localStorage
 function getHighScore() {
     return parseInt(localStorage.getItem('highestScore')) || 0;
 }
 
-// Fetch and display the highest score
 function fetchHighScore() {
     const highestScore = getHighScore();
     highestScoreDisplay.textContent = 'Highest Score: ' + highestScore;
 }
 
-// Generate a new pixel element
 function generatePixel() {
     if (Math.random() < 0.1) { // Adjust the probability of pixel generation
         const pixel = document.createElement('div');
@@ -178,7 +175,6 @@ function generatePixel() {
     }
 }
 
-// Move pixel elements down the screen
 function movePixels() {
     const pixels = document.querySelectorAll('.pixel');
     pixels.forEach(pixel => {
