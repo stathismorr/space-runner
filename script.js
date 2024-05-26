@@ -9,7 +9,7 @@ const soundtrack = document.getElementById('soundtrack');
 const muteButton = document.getElementById('muteButton');
 const volumeControl = document.getElementById('volumeControl');
 
-const EDGE_DEADZONE = 10; // Adjust this value to increase/decrease the edge deadzone
+const EDGE_DEADZONE = 5; // Adjust this value to increase/decrease the edge deadzone
 
 let playerPosition = 50;
 let targetPlayerPosition = 50;
