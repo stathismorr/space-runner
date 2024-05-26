@@ -32,8 +32,8 @@ body {
     left: 50%;
     width: 50px;
     height: 50px;
-    background-color: tomato;
-    border-radius: 50%; /* Make it a ball */
+    background: url('spaceship.png') no-repeat center center;
+    background-size: contain;
     transform: translateX(-50%);
 }
 
@@ -42,8 +42,8 @@ body {
     top: 0;
     width: 50px;
     height: 50px;
-    background-color: rgb(255, 241, 186);
-    border-radius: 50%; /* Make it a ball */
+    background: url('rock.png') no-repeat center center;
+    background-size: contain;
 }
 
 #score {
