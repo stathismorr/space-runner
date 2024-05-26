@@ -9,13 +9,14 @@ const soundtrack = document.getElementById('soundtrack');
 const muteButton = document.getElementById('muteButton');
 const volumeControl = document.getElementById('volumeControl');
 
-const EDGE_DEADZONE = 5; // Adjust this value to increase/decrease the edge deadzone
+const EDGE_DEADZONE = 10; // Adjust this value to increase/decrease the edge deadzone
 
 let playerPosition = 50;
 let targetPlayerPosition = 50;
 let obstaclePosition = 0;
 let score = 0;
-let speed = 1;
+let speed = 0.5; // Initial speed is slower
+let speedIncrement = 0.01; // Speed increases more gradually
 let gameRunning = false;
 let isMuted = false;
 let shiftPressed = false;
@@ -72,7 +73,7 @@ const startGame = () => {
     highestScoreDisplay.style.display = 'block';
     gameRunning = true;
     score = 0;
-    speed = 1;
+    speed = 0.5; // Reset initial speed
     obstaclePosition = 0;
     obstacle.style.top = obstaclePosition + '%';
     obstacle.style.left = Math.random() * 90 + '%';
@@ -93,7 +94,7 @@ const updateGame = () => {
         obstaclePosition = 0;
         obstacle.style.left = Math.random() * 90 + '%';
         score++;
-        speed += 0.02;
+        speed += speedIncrement; // Gradual speed increment
     }
     obstacle.style.top = obstaclePosition + '%';
 
