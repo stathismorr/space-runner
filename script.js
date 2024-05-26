@@ -9,6 +9,8 @@ const soundtrack = document.getElementById('soundtrack');
 const muteButton = document.getElementById('muteButton');
 const volumeControl = document.getElementById('volumeControl');
 
+const EDGE_DEADZONE = 10; // Adjust this value to increase/decrease the edge deadzone
+
 let playerPosition = 50;
 let targetPlayerPosition = 50;
 let obstaclePosition = 0;
@@ -26,11 +28,19 @@ document.addEventListener('keydown', (event) => {
     if (!gameRunning) {
         startGame();
     } else {
-        if (event.key === 'ArrowLeft' && targetPlayerPosition > 10) {
-            targetPlayerPosition -= shiftPressed ? 20 : 10; // More drastic movement if shift is pressed
+        if (event.key === 'ArrowLeft') {
+            if (shiftPressed) {
+                targetPlayerPosition = Math.max(targetPlayerPosition - 20, EDGE_DEADZONE);
+            } else {
+                targetPlayerPosition = Math.max(targetPlayerPosition - 10, EDGE_DEADZONE);
+            }
         }
-        if (event.key === 'ArrowRight' && targetPlayerPosition < 90) {
-            targetPlayerPosition += shiftPressed ? 20 : 10; // More drastic movement if shift is pressed
+        if (event.key === 'ArrowRight') {
+            if (shiftPressed) {
+                targetPlayerPosition = Math.min(targetPlayerPosition + 20, 100 - EDGE_DEADZONE);
+            } else {
+                targetPlayerPosition = Math.min(targetPlayerPosition + 10, 100 - EDGE_DEADZONE);
+            }
         }
         if (event.key === 'Shift') {
             shiftPressed = true;
