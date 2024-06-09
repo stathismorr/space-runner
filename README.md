@@ -1,9 +1,13 @@
 # Space Runner
 
+
 Space Runner is a web-based game , created using HTML, CSS and Javascript.
 The player controls a spaceship that must avoid shooting stars.
 
 https://stathismorr.github.io/space-runner/
+
+![Logo](https://github.com/username/repository/blob/main/images/logo.png)
+
 
 ## Features
 
