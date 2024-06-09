@@ -6,7 +6,7 @@ The player controls a spaceship that must avoid shooting stars.
 
 https://stathismorr.github.io/space-runner/
 
-![Logo](https://github.com/stathismorr/space-runner/blob/main/spacerunner.jpg))
+![Logo](https://github.com/stathismorr/space-runner/blob/main/spacerunner.jpg)
 
 
 ## Features
